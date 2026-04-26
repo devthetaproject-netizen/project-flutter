@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_user/data/models/mitra_model.dart';
+import 'package:flutter_application_user/presentation/widgets/search_field.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../state_mgmt/search_provider.dart';
 import '../widgets/recent_item.dart';
@@ -33,9 +34,45 @@ class _SearchPageState extends ConsumerState<SearchPage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildSearchField(),
               const SizedBox(height: 16),
+
+              // ← pindah ke sini, di luar Expanded
+              if (query.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      RichText(
+                        text: TextSpan(
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                          children: [
+                            const TextSpan(text: 'Results for "'),
+                            TextSpan(
+                              text: query,
+                              style: const TextStyle(color: Color(0xFF007B7F)),
+                            ),
+                            const TextSpan(text: '"'),
+                          ],
+                        ),
+                      ),
+                      Text(
+                        '${searchResults.length} found',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF007B7F),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               Expanded(
                 child: query.isEmpty
                     ? _buildRecentSearches(recentSearches)
@@ -49,9 +86,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
   }
 
   Widget _buildSearchField() {
-    return TextField(
-      controller: _controller,
-      autofocus: true,
+    return SearchField(
+      readOnly: false,
       onChanged: (value) {
         ref.read(searchQueryProvider.notifier).state = value;
       },
@@ -60,30 +96,6 @@ class _SearchPageState extends ConsumerState<SearchPage> {
           ref.read(recentSearchProvider.notifier).addSearch(value);
         }
       },
-      style: const TextStyle(fontSize: 14),
-      decoration: InputDecoration(
-        hintText: 'Search',
-        hintStyle: const TextStyle(color: Color(0xFFAAAAAA)),
-        prefixIcon: const Icon(Icons.search, color: Color(0xFF007B7F)),
-        suffixIcon: IconButton(
-          icon: const Icon(Icons.tune, color: Color(0xFF007B7F)),
-          onPressed: () => debugPrint("Filter tapped"),
-        ),
-        filled: true,
-        fillColor: const Color(0xFFF0EEFF),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Color(0xFF007B7F), width: 1.5),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Color(0xFF007B7F), width: 1.5),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Color(0xFF007B7F), width: 1.5),
-        ),
-      ),
     );
   }
 
@@ -134,12 +146,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
   Widget _buildSearchResults(List<MitraModel> results) {
     if (results.isEmpty) {
-      return const Center(
-        child: Text(
-          'Tidak ada hasil ditemukan',
-          style: TextStyle(color: Colors.black45),
-        ),
-      );
+      return _buildNotFound();
     }
 
     return ListView.separated(
@@ -151,6 +158,42 @@ class _SearchPageState extends ConsumerState<SearchPage> {
           onTap: () => debugPrint("Tapped: ${results[index].serviceName}"),
         );
       },
+    );
+  }
+
+  Widget _buildNotFound() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            Icons.sentiment_dissatisfied_outlined,
+            size: 100,
+            color: Color(0xFFCCBBFF),
+          ),
+          //tambah gambar
+          //Image.asset(
+          //'assets/images/not_found.png',
+          //width: 200,
+          //height: 200,),
+          //tambah gambar
+          const SizedBox(height: 24),
+          const Text(
+            'Not Found',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(height: 12),
+          const Text(
+            'Sorry, the keyword you entered cannot be found, please check again or search with another keyword.',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 13, color: Colors.black54),
+          ),
+        ],
+      ),
     );
   }
 }

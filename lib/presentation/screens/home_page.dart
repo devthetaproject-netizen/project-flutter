@@ -37,8 +37,8 @@ class HomePage extends ConsumerWidget {
         child: Column(
           children: [
             SearchField(
+              readOnly: true,
               onTap: () => SearchNavigation.toSearch(context),
-              onChanged: (_) {},
             ),
             SectionHeader(
               title: 'Penawaran Khusus',
