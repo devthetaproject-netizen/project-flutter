@@ -1,35 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_user/data/datasources/layanan_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../state_mgmt/layanan_provider.dart';
 
-class ServicePills extends StatefulWidget {
+class ServicePills extends ConsumerStatefulWidget {
   final ValueChanged<String>? onSelected;
   const ServicePills({super.key, this.onSelected});
 
   @override
-  State<ServicePills> createState() => _ServicePillsState();
+  ConsumerState<ServicePills> createState() => _ServicePillsState();
 }
 
-class _ServicePillsState extends State<ServicePills> {
+class _ServicePillsState extends ConsumerState<ServicePills> {
   int selectedIndex = 0;
 
-  List<String> get _services {
-    final labels = LayananData.services.map((e) => e.label).toList();
+  List<String> _getServices(List layanans) {
+    final labels = layanans.map((e) => e.label).toList();
     return ['All', ...labels];
   }
 
   @override
   Widget build(BuildContext context) {
+    final layanans = ref.watch(layananProvider);
+    final services = _getServices(layanans);
+
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-        children: List.generate(_services.length, (index) {
+        children: List.generate(services.length, (index) {
           final isSelected = selectedIndex == index;
           return GestureDetector(
             onTap: () {
               setState(() {
                 selectedIndex = index;
               });
-              widget.onSelected?.call(_services[index]);
+              widget.onSelected?.call(services[index]);
             },
             child: Container(
               margin: const EdgeInsets.only(right: 8),
@@ -40,7 +44,7 @@ class _ServicePillsState extends State<ServicePills> {
                 border: Border.all(color: const Color(0xFF007B7F), width: 1.5),
               ),
               child: Text(
-                _services[index],
+                services[index],
                 style: TextStyle(
                   color: isSelected ? Colors.white : const Color(0xFF007B7F),
                   fontWeight: FontWeight.w500,

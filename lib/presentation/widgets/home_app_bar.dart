@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class BerandaAppBar extends StatelessWidget implements PreferredSizeWidget {
+class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String name;
   final String greeting;
   final String imagePath;
@@ -8,7 +8,7 @@ class BerandaAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onNotificationTap;
   final VoidCallback? onBookmarkTap;
 
-  const BerandaAppBar({
+  const HomeAppBar({
     super.key,
     required this.name,
     required this.greeting,

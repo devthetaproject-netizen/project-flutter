@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import '../../data/datasources/layanan_data.dart';
-import '../widgets/layanan_item.dart';
+import 'package:flutter_application_user/presentation/widgets/service_item.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../navigation/all_services_navigation.dart';
+import '../state_mgmt/layanan_provider.dart';
 
-class SeeLayananPage extends StatelessWidget {
-  const SeeLayananPage({super.key});
+class AllServicesPage extends ConsumerWidget {
+  const AllServicesPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final layanans = ref.watch(layananProvider); // ← ambil dari provider
+
     return Scaffold(
       appBar: _buildAppBar(context),
       body: Padding(
@@ -14,12 +18,11 @@ class SeeLayananPage extends StatelessWidget {
         child: GridView.count(
           crossAxisCount: 4,
           childAspectRatio: 0.8,
-          children: LayananData.services.map((service) {
-            return LayananItem(
+          children: layanans.map((service) {
+            return ServiceItem(
               service: service,
-              onTap: () {
-                debugPrint("Tapped: ${service.label}");
-              },
+              onTap: () =>
+                  AllServicesNavigation.toServiceList(context, service.label),
             );
           }).toList(),
         ),

@@ -1,73 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_user/presentation/screens/home_page.dart';
-import 'package:flutter_application_user/presentation/screens/booking_page.dart';
-import 'package:flutter_application_user/presentation/screens/calender_page.dart';
-import 'package:flutter_application_user/presentation/screens/inbox_page.dart';
-import 'package:flutter_application_user/presentation/screens/profile_page.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../state_mgmt/main_provider.dart';
+import '../screens/home_page.dart';
+import '../screens/booking_page.dart';
+import '../screens/calender_page.dart';
+import '../screens/inbox_page.dart';
+import '../screens/profile_page.dart';
 
-class MainPages extends StatefulWidget {
-  const MainPages({super.key});
-
-  @override
-  State<MainPages> createState() => _MainPagesState();
-}
-
-class _MainPagesState extends State<MainPages> {
-  int _selectedIndex = 0;
-  late List<Widget> _pages;
+class MainPage extends ConsumerWidget {
+  const MainPage({super.key});
 
   @override
-  void initState() {
-    super.initState();
-    _pages = [
-      HomePages(onProfileTap: _onProfileTap),
-      BookingPages(),
-      CalendarPages(),
-      InboxPages(),
-      ProfilePages(),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedIndex = ref.watch(selectedIndexProvider);
+
+    final pages = [
+      HomePage(
+        onProfileTap: () {
+          ref.read(selectedIndexProvider.notifier).state = 4;
+        },
+      ),
+      const BookingPages(),
+      const CalendarPages(),
+      const InboxPages(),
+      const ProfilePages(),
     ];
-  }
 
-  Future<bool> _onWillPop() async {
-    if (_selectedIndex != 0) {
-      setState(() {
-        _selectedIndex = 0;
-      });
-      return false;
-    }
-    return true;
-  }
-
-  void _onProfileTap() {
-    setState(() {
-      _selectedIndex = 4;
-    });
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
-        if (!didPop) _onWillPop();
+        if (!didPop) {
+          if (selectedIndex != 0) {
+            ref.read(selectedIndexProvider.notifier).state = 0;
+          }
+        }
       },
       child: Scaffold(
-        body: _pages[_selectedIndex],
-        bottomNavigationBar: _buildBottomNavBar(),
+        body: pages[selectedIndex],
+        bottomNavigationBar: _buildBottomNavBar(selectedIndex, ref),
       ),
     );
   }
 
-  BottomNavigationBar _buildBottomNavBar() {
+  BottomNavigationBar _buildBottomNavBar(int selectedIndex, WidgetRef ref) {
     return BottomNavigationBar(
-      currentIndex: _selectedIndex,
-      onTap: _onItemTapped,
+      currentIndex: selectedIndex,
+      onTap: (index) {
+        ref.read(selectedIndexProvider.notifier).state = index;
+      },
       selectedItemColor: const Color(0xFF007B7F),
       unselectedItemColor: Colors.grey,
       showUnselectedLabels: true,

@@ -1,31 +1,16 @@
 import 'package:flutter/material.dart';
-import '../../data/datasources/notif_data.dart';
-import '../../data/models/notif_model.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../state_mgmt/notif_provider.dart';
 import '../widgets/notif_item.dart';
 
-class NotifikasiPage extends StatefulWidget {
-  const NotifikasiPage({super.key});
+class NotificationPage extends ConsumerWidget {
+  const NotificationPage({super.key});
 
-  @override
-  State<NotifikasiPage> createState() => _NotifikasiPageState();
-}
-
-class _NotifikasiPageState extends State<NotifikasiPage> {
-  List<NotifModel> get _notifs => NotifData.notifs;
-
-  void _markAllAsRead() {
-    setState(() {
-      for (var notif in _notifs) {
-        notif.isRead = true;
-      }
-    });
-  }
-
-  Map<String, List<NotifModel>> get _groupedNotifs {
-    final Map<String, List<NotifModel>> grouped = {};
+  Map<String, List<dynamic>> _groupedNotifs(List notifs) {
+    final Map<String, List<dynamic>> grouped = {};
     final now = DateTime.now();
 
-    for (var notif in _notifs) {
+    for (var notif in notifs) {
       final diff = now.difference(notif.dateTime).inDays;
       String label;
 
@@ -62,12 +47,15 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final notifs = ref.watch(notifProvider);
+    final grouped = _groupedNotifs(notifs);
+
     return Scaffold(
-      appBar: _buildAppBar(),
+      appBar: _buildAppBar(ref),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        children: _groupedNotifs.entries.map((entry) {
+        children: grouped.entries.map((entry) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -89,7 +77,7 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
     );
   }
 
-  AppBar _buildAppBar() {
+  AppBar _buildAppBar(WidgetRef ref) {
     return AppBar(
       title: const Text('Notification'),
       actions: [
@@ -102,7 +90,9 @@ class _NotifikasiPageState extends State<NotifikasiPage> {
             ),
           ],
           onSelected: (value) {
-            if (value == 'mark_all') _markAllAsRead();
+            if (value == 'mark_all') {
+              ref.read(notifProvider.notifier).markAllAsRead();
+            }
           },
         ),
       ],

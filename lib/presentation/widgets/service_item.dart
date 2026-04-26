@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_user/data/models/layanan_model.dart';
 
-class LayananItem extends StatelessWidget {
+class ServiceItem extends StatelessWidget {
   final LayananModel service;
   final VoidCallback? onTap;
 
-  const LayananItem({super.key, required this.service, this.onTap});
+  const ServiceItem({super.key, required this.service, this.onTap});
 
   @override
   Widget build(BuildContext context) {
