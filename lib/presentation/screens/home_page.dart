@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_user/presentation/navigation/home_navigation.dart';
+import 'package:flutter_application_user/presentation/navigation/search_navigation.dart';
 import 'package:flutter_application_user/presentation/state_mgmt/home_provider.dart';
 import 'package:flutter_application_user/presentation/state_mgmt/user_provider.dart';
 import 'package:flutter_application_user/presentation/widgets/banner_promo.dart';
@@ -36,8 +37,8 @@ class HomePage extends ConsumerWidget {
         child: Column(
           children: [
             SearchField(
-              onChanged: (value) => debugPrint("Search: $value"),
-              onTap: () => debugPrint("Search tapped"),
+              onTap: () => SearchNavigation.toSearch(context),
+              onChanged: (_) {},
             ),
             SectionHeader(
               title: 'Penawaran Khusus',
