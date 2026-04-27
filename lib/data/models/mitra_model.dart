@@ -1,7 +1,8 @@
 class MitraModel {
   final String providerName;
   final String serviceName;
-  final String price;
+  final double price; // ← angka murni untuk logic
+  final String priceLabel; // ← teks untuk UI
   final double rating;
   final int reviewCount;
   final String imagePath;
@@ -11,6 +12,7 @@ class MitraModel {
     required this.providerName,
     required this.serviceName,
     required this.price,
+    required this.priceLabel,
     required this.rating,
     required this.reviewCount,
     required this.imagePath,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_user/data/models/mitra_model.dart';
+import 'package:flutter_application_user/presentation/state_mgmt/filter_provider.dart';
+import 'package:flutter_application_user/presentation/widgets/filter_bottom_sheet.dart';
 import 'package:flutter_application_user/presentation/widgets/search_field.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../state_mgmt/search_provider.dart';
@@ -27,7 +29,15 @@ class _SearchPageState extends ConsumerState<SearchPage> {
   Widget build(BuildContext context) {
     final query = ref.watch(searchQueryProvider);
     final recentSearches = ref.watch(recentSearchProvider);
-    final searchResults = ref.watch(searchResultProvider);
+    final searchResults = ref.watch(searchFilteredMitraProvider);
+    final filter = ref.watch(filterProvider); // ← tambah ini
+    final filterApplied = ref.watch(filterAppliedProvider);
+    // cek filter aktif di sini
+    final isFilterActive =
+        filterApplied ||
+        filter.category != 'All' ||
+        filter.minRating != 0 ||
+        filter.priceRange != const RangeValues(0, 500000);
 
     return Scaffold(
       body: SafeArea(
@@ -38,29 +48,32 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             children: [
               _buildSearchField(),
               const SizedBox(height: 16),
-
-              // ← pindah ke sini, di luar Expanded
-              if (query.isNotEmpty)
+              if (query.isNotEmpty || isFilterActive)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      RichText(
-                        text: TextSpan(
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                          children: [
-                            const TextSpan(text: 'Results for "'),
-                            TextSpan(
-                              text: query,
-                              style: const TextStyle(color: Color(0xFF007B7F)),
+                      Flexible(
+                        child: RichText(
+                          text: TextSpan(
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
                             ),
-                            const TextSpan(text: '"'),
-                          ],
+                            children: [
+                              const TextSpan(text: 'Results for "'),
+                              TextSpan(
+                                text: query.isEmpty ? filter.category : query,
+                                style: const TextStyle(
+                                  color: Color(0xFF007B7F),
+                                ),
+                              ),
+                              const TextSpan(text: '"'),
+                            ],
+                          ),
+                          overflow: TextOverflow.ellipsis, // ← tambah ini
                         ),
                       ),
                       Text(
@@ -74,7 +87,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                   ),
                 ),
               Expanded(
-                child: query.isEmpty
+                child: query.isEmpty && !isFilterActive
                     ? _buildRecentSearches(recentSearches)
                     : _buildSearchResults(searchResults),
               ),
@@ -95,6 +108,17 @@ class _SearchPageState extends ConsumerState<SearchPage> {
         if (value.isNotEmpty) {
           ref.read(recentSearchProvider.notifier).addSearch(value);
         }
+      },
+      onFilterTap: () {
+        showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          builder: (context) => UncontrolledProviderScope(
+            container: ProviderScope.containerOf(context),
+            child: const FilterBottomSheet(),
+          ),
+        );
       },
     );
   }

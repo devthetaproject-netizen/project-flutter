@@ -5,7 +5,8 @@ class MitraData {
     MitraModel(
       providerName: "cv.elektrik",
       serviceName: "Servis Elektronik",
-      price: "Rp.-",
+      price: 0,
+      priceLabel: "Rp.-",
       rating: 4.5,
       reviewCount: 23,
       imagePath: "assets/images/dummy.jpg",
@@ -14,7 +15,8 @@ class MitraData {
     MitraModel(
       providerName: "Landwo Norris",
       serviceName: "Potong Rumput",
-      price: "Rp 50.000/meter",
+      price: 50000,
+      priceLabel: "Rp 50.000/meter",
       rating: 4.2,
       reviewCount: 15,
       imagePath: "assets/images/dummy.jpg",
@@ -23,8 +25,9 @@ class MitraData {
     MitraModel(
       providerName: "Clean Pro",
       serviceName: "Cleaning Service",
-      price: "Rp 150.000",
-      rating: 2,
+      price: 150000,
+      priceLabel: "Rp 150.000",
+      rating: 2.0,
       reviewCount: 42,
       imagePath: "assets/images/dummy.jpg",
       category: "Cleaning",

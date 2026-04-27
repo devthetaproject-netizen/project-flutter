@@ -5,6 +5,7 @@ class SearchField extends StatelessWidget {
   final VoidCallback? onTap;
   final ValueChanged<String>? onSubmitted;
   final bool readOnly;
+  final VoidCallback? onFilterTap;
 
   const SearchField({
     super.key,
@@ -12,6 +13,7 @@ class SearchField extends StatelessWidget {
     this.onTap,
     this.onSubmitted,
     this.readOnly = false,
+    this.onFilterTap,
   });
 
   @override
@@ -27,6 +29,12 @@ class SearchField extends StatelessWidget {
         hintText: 'Search',
         hintStyle: const TextStyle(color: Color(0xFFAAAAAA)),
         prefixIcon: const Icon(Icons.search, color: Color(0xFFAAAAAA)),
+        suffixIcon: onFilterTap != null
+            ? IconButton(
+                icon: const Icon(Icons.tune, color: Color(0xFF007B7F)),
+                onPressed: onFilterTap,
+              )
+            : null,
         filled: true,
         fillColor: const Color(0xFFF5F5F8),
         border: OutlineInputBorder(

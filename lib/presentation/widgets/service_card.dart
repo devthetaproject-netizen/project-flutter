@@ -129,7 +129,7 @@ class _ServiceCardState extends State<ServiceCard> {
 
   Widget _buildPrice() {
     return Text(
-      widget.mitra.price,
+      widget.mitra.priceLabel,
       style: const TextStyle(fontSize: 13, color: Colors.black54),
     );
   }
