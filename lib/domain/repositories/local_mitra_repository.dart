@@ -7,7 +7,12 @@ class LocalMitraRepository implements MitraRepository {
   List<MitraModel> search(String query) {
     if (query.isEmpty) return MitraData.mitras;
     return MitraData.mitras
-        .where((m) => m.serviceName.toLowerCase().contains(query.toLowerCase()))
+        .where(
+          (m) =>
+              m.serviceName.toLowerCase().contains(query.toLowerCase()) ||
+              m.category.toLowerCase().contains(query.toLowerCase()) ||
+              m.providerName.toLowerCase().contains(query.toLowerCase()),
+        )
         .toList();
   }
 }
