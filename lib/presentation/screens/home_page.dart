@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_user/presentation/navigation/detail_navigation.dart';
 import 'package:flutter_application_user/presentation/navigation/home_navigation.dart';
 import 'package:flutter_application_user/presentation/navigation/search_navigation.dart';
 import 'package:flutter_application_user/presentation/state_mgmt/home_provider.dart';
@@ -67,7 +68,7 @@ class HomePage extends ConsumerWidget {
                 padding: const EdgeInsets.only(bottom: 12),
                 child: ServiceCard(
                   mitra: mitra,
-                  onTap: () => debugPrint("Tapped: ${mitra.serviceName}"),
+                  onTap: () => DetailNavigation.toDetail(context, mitra),
                 ),
               ),
             ),

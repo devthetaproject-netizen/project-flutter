@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_user/presentation/navigation/detail_navigation.dart';
 import 'package:flutter_application_user/presentation/widgets/service_pill.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../state_mgmt/see_all_provider.dart';
@@ -40,13 +41,11 @@ class ServiceListPage extends ConsumerWidget {
                     itemCount: filteredMitras.length,
                     separatorBuilder: (_, _) => const SizedBox(height: 12),
                     itemBuilder: (context, index) {
+                      final mitra =
+                          filteredMitras[index]; // ← ganti filtered ke filteredMitras
                       return ServiceCard(
-                        mitra: filteredMitras[index],
-                        onTap: () {
-                          debugPrint(
-                            "Tapped: ${filteredMitras[index].serviceName}",
-                          );
-                        },
+                        mitra: mitra,
+                        onTap: () => DetailNavigation.toDetail(context, mitra),
                       );
                     },
                   ),

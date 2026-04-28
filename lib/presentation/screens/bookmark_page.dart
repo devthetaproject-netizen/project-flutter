@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_user/presentation/navigation/detail_navigation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/models/mitra_model.dart';
 import '../state_mgmt/bookmark_provider.dart';
@@ -133,13 +134,12 @@ class _BookmarkPageState extends ConsumerState<BookmarkPage> {
                     itemCount: filtered.length,
                     separatorBuilder: (_, _) => const SizedBox(height: 12),
                     itemBuilder: (context, index) {
+                      final mitra = filtered[index];
                       return ServiceCard(
-                        mitra: filtered[index],
-                        onTap: () => debugPrint(
-                          "Tapped: ${filtered[index].serviceName}",
-                        ),
+                        mitra: mitra,
+                        onTap: () => DetailNavigation.toDetail(context, mitra),
                         onBookmarkTap: () =>
-                            _showRemoveModal(context, filtered[index]),
+                            _showRemoveModal(context, mitra), // ← tambah ini
                       );
                     },
                   ),

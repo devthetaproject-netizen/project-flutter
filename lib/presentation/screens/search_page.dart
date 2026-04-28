@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_user/data/models/mitra_model.dart';
+import 'package:flutter_application_user/presentation/navigation/detail_navigation.dart';
 import 'package:flutter_application_user/presentation/state_mgmt/filter_provider.dart';
 import 'package:flutter_application_user/presentation/widgets/filter_bottom_sheet.dart';
 import 'package:flutter_application_user/presentation/widgets/search_field.dart';
@@ -177,9 +178,10 @@ class _SearchPageState extends ConsumerState<SearchPage> {
       itemCount: results.length,
       separatorBuilder: (_, _) => const SizedBox(height: 12),
       itemBuilder: (context, index) {
+        final mitra = results[index]; // ← ganti filtered ke results
         return ServiceCard(
-          mitra: results[index],
-          onTap: () => debugPrint("Tapped: ${results[index].serviceName}"),
+          mitra: mitra,
+          onTap: () => DetailNavigation.toDetail(context, mitra),
         );
       },
     );

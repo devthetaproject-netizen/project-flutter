@@ -1,3 +1,5 @@
+import 'package:flutter_application_user/data/models/review_model.dart';
+
 class MitraModel {
   final String providerName;
   final String serviceName;
@@ -7,6 +9,10 @@ class MitraModel {
   final int reviewCount;
   final String imagePath;
   final String category;
+  final String address; // ← tambah
+  final String description; // ← tambah
+  final List<String> photos; // ← tambah
+  final List<ReviewModel> reviews; // ← tambah
 
   const MitraModel({
     required this.providerName,
@@ -17,5 +23,9 @@ class MitraModel {
     required this.reviewCount,
     required this.imagePath,
     required this.category,
+    this.address = '',
+    this.description = '',
+    this.photos = const <String>[], // ← fix ini
+    this.reviews = const <ReviewModel>[], // ← fix ini
   });
 }

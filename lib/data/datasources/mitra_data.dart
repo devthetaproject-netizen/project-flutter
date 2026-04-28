@@ -1,4 +1,5 @@
 import 'package:flutter_application_user/data/models/mitra_model.dart';
+import 'package:flutter_application_user/data/models/review_model.dart';
 
 class MitraData {
   static const List<MitraModel> mitras = [
@@ -76,6 +77,44 @@ class MitraData {
       reviewCount: 42,
       imagePath: "assets/images/dummy.jpg",
       category: "Cleaning",
+      address: "Jl. Sudirman No. 123, PekanBaru",
+      description:
+          "Kami menyediakan jasa cleaning service profesional untuk rumah dan kantor. Tim kami berpengalaman dan menggunakan peralatan modern untuk hasil terbaik.",
+      photos: [
+        "assets/images/dummy.jpg",
+        "assets/images/dummy.jpg",
+        "assets/images/dummy.jpg",
+        "assets/images/dummy.jpg",
+      ],
+      reviews: [
+        ReviewModel(
+          reviewerName: "Charles Leclerc",
+          reviewerImage: "assets/images/dummy.jpg",
+          rating: 5,
+          comment:
+              "Awesome! this is what i was looking for, i recommend to everyone!",
+          likes: 724,
+          timeAgo: "3 weeks ago",
+        ),
+        ReviewModel(
+          reviewerName: "Lewis Hamilton",
+          reviewerImage: "assets/images/dummy.jpg",
+          rating: 4,
+          comment:
+              "The workers are very professional and the results are very satisfying!",
+          likes: 783,
+          timeAgo: "1 weeks ago",
+        ),
+        ReviewModel(
+          reviewerName: "Isack Hadjar",
+          reviewerImage: "assets/images/dummy.jpg",
+          rating: 5,
+          comment:
+              "This is the first time I've used his services, and the results were amazing!",
+          likes: 597,
+          timeAgo: "2 weeks ago",
+        ),
+      ],
     ),
     MitraModel(
       providerName: "Spotless Clean",

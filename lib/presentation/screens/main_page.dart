@@ -20,7 +20,7 @@ class MainPage extends ConsumerWidget {
           ref.read(selectedIndexProvider.notifier).state = 4;
         },
       ),
-      const BookingPages(),
+      const BookingPage(),
       const CalendarPages(),
       const InboxPages(),
       const ProfilePages(),
