@@ -2,8 +2,9 @@ import 'package:flutter_application_user/data/models/mitra_model.dart';
 
 class MitraData {
   static const List<MitraModel> mitras = [
+    // Electronic
     MitraModel(
-      providerName: "cv.elektrik",
+      providerName: "CV Elektrik",
       serviceName: "Servis Elektronik",
       price: 0,
       priceLabel: "Rp.-",
@@ -12,6 +13,28 @@ class MitraData {
       imagePath: "assets/images/dummy.jpg",
       category: "Electronic",
     ),
+    MitraModel(
+      providerName: "Budi Elektronik",
+      serviceName: "Servis TV & Audio",
+      price: 75000,
+      priceLabel: "Rp 75.000",
+      rating: 4.3,
+      reviewCount: 18,
+      imagePath: "assets/images/dummy.jpg",
+      category: "Electronic",
+    ),
+    MitraModel(
+      providerName: "TechFix Pro",
+      serviceName: "Servis Laptop & PC",
+      price: 100000,
+      priceLabel: "Rp 100.000",
+      rating: 4.7,
+      reviewCount: 56,
+      imagePath: "assets/images/dummy.jpg",
+      category: "Electronic",
+    ),
+
+    // Gardening
     MitraModel(
       providerName: "Landwo Norris",
       serviceName: "Potong Rumput",
@@ -23,6 +46,28 @@ class MitraData {
       category: "Gardening",
     ),
     MitraModel(
+      providerName: "Green Garden",
+      serviceName: "Penataan Taman",
+      price: 200000,
+      priceLabel: "Rp 200.000",
+      rating: 4.8,
+      reviewCount: 34,
+      imagePath: "assets/images/dummy.jpg",
+      category: "Gardening",
+    ),
+    MitraModel(
+      providerName: "Taman Indah",
+      serviceName: "Perawatan Tanaman",
+      price: 80000,
+      priceLabel: "Rp 80.000",
+      rating: 4.1,
+      reviewCount: 12,
+      imagePath: "assets/images/dummy.jpg",
+      category: "Gardening",
+    ),
+
+    // Cleaning
+    MitraModel(
       providerName: "Clean Pro",
       serviceName: "Cleaning Service",
       price: 150000,
@@ -31,6 +76,134 @@ class MitraData {
       reviewCount: 42,
       imagePath: "assets/images/dummy.jpg",
       category: "Cleaning",
+    ),
+    MitraModel(
+      providerName: "Spotless Clean",
+      serviceName: "Deep Cleaning Rumah",
+      price: 300000,
+      priceLabel: "Rp 300.000",
+      rating: 4.9,
+      reviewCount: 87,
+      imagePath: "assets/images/dummy.jpg",
+      category: "Cleaning",
+    ),
+    MitraModel(
+      providerName: "Fresh Clean",
+      serviceName: "Cuci Sofa & Karpet",
+      price: 120000,
+      priceLabel: "Rp 120.000",
+      rating: 4.4,
+      reviewCount: 29,
+      imagePath: "assets/images/dummy.jpg",
+      category: "Cleaning",
+    ),
+
+    // Repairing
+    MitraModel(
+      providerName: "Handyman Pro",
+      serviceName: "Servis Perabot Rumah",
+      price: 85000,
+      priceLabel: "Rp 85.000",
+      rating: 4.6,
+      reviewCount: 44,
+      imagePath: "assets/images/dummy.jpg",
+      category: "Repairing",
+    ),
+    MitraModel(
+      providerName: "Fix It Fast",
+      serviceName: "Perbaikan Pintu & Jendela",
+      price: 95000,
+      priceLabel: "Rp 95.000",
+      rating: 4.3,
+      reviewCount: 31,
+      imagePath: "assets/images/dummy.jpg",
+      category: "Repairing",
+    ),
+    MitraModel(
+      providerName: "Rapi Bangunan",
+      serviceName: "Pengecatan Dinding",
+      price: 250000,
+      priceLabel: "Rp 250.000",
+      rating: 4.7,
+      reviewCount: 62,
+      imagePath: "assets/images/dummy.jpg",
+      category: "Repairing",
+    ),
+
+    // Laundry
+    MitraModel(
+      providerName: "Laundry Kilat",
+      serviceName: "Cuci & Setrika",
+      price: 7000,
+      priceLabel: "Rp 7.000/kg",
+      rating: 4.5,
+      reviewCount: 120,
+      imagePath: "assets/images/dummy.jpg",
+      category: "Laundry",
+    ),
+    MitraModel(
+      providerName: "Clean Wash",
+      serviceName: "Laundry Express",
+      price: 10000,
+      priceLabel: "Rp 10.000/kg",
+      rating: 4.8,
+      reviewCount: 95,
+      imagePath: "assets/images/dummy.jpg",
+      category: "Laundry",
+    ),
+    MitraModel(
+      providerName: "Bersih Laundry",
+      serviceName: "Cuci Sepatu",
+      price: 25000,
+      priceLabel: "Rp 25.000/pasang",
+      rating: 4.6,
+      reviewCount: 78,
+      imagePath: "assets/images/dummy.jpg",
+      category: "Laundry",
+    ),
+
+    // Plumbing
+    MitraModel(
+      providerName: "Pipa Jaya",
+      serviceName: "Servis Pipa Bocor",
+      price: 100000,
+      priceLabel: "Rp 100.000",
+      rating: 4.4,
+      reviewCount: 37,
+      imagePath: "assets/images/dummy.jpg",
+      category: "Plumbing",
+    ),
+    MitraModel(
+      providerName: "Water Pro",
+      serviceName: "Instalasi Pipa Air",
+      price: 350000,
+      priceLabel: "Rp 350.000",
+      rating: 4.7,
+      reviewCount: 53,
+      imagePath: "assets/images/dummy.jpg",
+      category: "Plumbing",
+    ),
+
+    // AC Cleaning
+    MitraModel(
+      providerName: "Cool Air",
+      serviceName: "Cuci AC Split",
+      price: 80000,
+      priceLabel: "Rp 80.000/unit",
+      rating: 4.8,
+      reviewCount: 112,
+      imagePath: "assets/images/dummy.jpg",
+      category: "AC Cleaning",
+    ),
+    MitraModel(
+      providerName: "AC Master",
+      serviceName: "Servis & Isi Freon",
+      price: 150000,
+      priceLabel: "Rp 150.000",
+      rating: 4.6,
+      reviewCount: 89,
+      imagePath: "assets/images/dummy.jpg",
+      category: "AC Cleaning",
     ),
   ];
 }
