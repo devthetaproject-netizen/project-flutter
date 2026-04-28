@@ -46,7 +46,7 @@ class _BookmarkPageState extends ConsumerState<BookmarkPage> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            ServiceCard(mitra: mitra),
+            ServiceCard(mitra: mitra, onBookmarkTap: () {}),
             const SizedBox(height: 24),
             Row(
               children: [
