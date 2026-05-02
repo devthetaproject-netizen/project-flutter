@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_user/presentation/screens/chat_detail_page.dart';
 
 class ChatItem extends StatelessWidget {
   final String name;
@@ -7,6 +6,7 @@ class ChatItem extends StatelessWidget {
   final String time;
   final int count;
   final String imagePath;
+  final VoidCallback? onTap;
 
   const ChatItem({
     super.key,
@@ -15,21 +15,19 @@ class ChatItem extends StatelessWidget {
     required this.time,
     required this.count,
     required this.imagePath,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => ChatDetailPage(name: name, imagePath: imagePath),
-          ),
-        );
-      },
+      onTap: onTap,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-      leading: CircleAvatar(radius: 26, backgroundImage: AssetImage(imagePath)),
+      leading: CircleAvatar(
+        radius: 26,
+        backgroundImage: AssetImage(imagePath),
+        onBackgroundImageError: (_, _) {},
+      ),
       title: Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
       subtitle: Text(message, maxLines: 1, overflow: TextOverflow.ellipsis),
       trailing: Column(

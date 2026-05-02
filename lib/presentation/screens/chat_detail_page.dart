@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_user/presentation/widgets/chat_bubble.dart';
+import '../../data/models/chat_model.dart';
+import '../widgets/chat_bubble.dart';
 
 class ChatDetailPage extends StatelessWidget {
-  final String name;
-  final String imagePath;
+  final ChatModel chat;
 
-  const ChatDetailPage({
-    super.key,
-    required this.name,
-    required this.imagePath,
-  });
+  const ChatDetailPage({super.key, required this.chat});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
-
-      // HEADER
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: const Icon(Icons.arrow_back, color: Colors.black),
-        title: Text(name, style: const TextStyle(color: Colors.black)),
+        title: Text(chat.name, style: const TextStyle(color: Colors.black)),
         actions: const [
           Icon(Icons.call_outlined, color: Colors.black),
           SizedBox(width: 12),
@@ -29,56 +23,24 @@ class ChatDetailPage extends StatelessWidget {
           SizedBox(width: 12),
         ],
       ),
-
       body: Column(
         children: [
-          // CHAT AREA
           Expanded(
             child: ListView(
               padding: const EdgeInsets.all(16),
               children: [
-                Center(child: _DateLabel()),
-
-                SizedBox(height: 12),
-
-                // RIGHT (ME)
-                ChatBubble(
-                  message: "Hi Jenny, good morning 😊",
-                  time: "10:00",
-                  isMe: true,
-                ),
-
-                ChatBubble(
-                  message:
-                      "I have booked your house cleaning service for December 23 at 10 AM 😁",
-                  time: "10:00",
-                  isMe: true,
-                ),
-
-                // LEFT
-                ChatBubble(
-                  message: "Hi, morning too Andrew!",
-                  time: "10:00",
-                  isMe: false,
-                ),
-
-                ChatBubble(
-                  message:
-                      "Yes, I have received your order. I will come on that date! 😁😁",
-                  time: "10:00",
-                  isMe: false,
-                ),
-
-                // RIGHT
-                ChatBubble(
-                  message: "Good, thanks Jenny...",
-                  time: "10:01",
-                  isMe: true,
+                const Center(child: _DateLabel()),
+                const SizedBox(height: 12),
+                ...chat.messages.map(
+                  (msg) => ChatBubble(
+                    message: msg.message,
+                    time: msg.time,
+                    isMe: msg.isMe,
+                  ),
                 ),
               ],
             ),
           ),
-
           const _ChatInput(),
         ],
       ),
@@ -128,8 +90,6 @@ class _ChatInput extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-
-          // MIC BUTTON
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
