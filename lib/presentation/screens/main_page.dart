@@ -22,7 +22,7 @@ class MainPage extends ConsumerWidget {
       ),
       const BookingPage(),
       const CalendarPages(),
-      const InboxPages(),
+      const InboxPage(),
       const ProfilePages(),
     ];
 
@@ -36,7 +36,7 @@ class MainPage extends ConsumerWidget {
         }
       },
       child: Scaffold(
-        body: pages[selectedIndex],
+        body: pages[selectedIndex], //potensi bug
         bottomNavigationBar: _buildBottomNavBar(selectedIndex, ref),
       ),
     );

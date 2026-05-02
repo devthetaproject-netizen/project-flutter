@@ -469,7 +469,7 @@ class _DetailPageState extends ConsumerState<DetailPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const BookingPage(),
+                      builder: (context) => BookingPage(mitra: widget.mitra),
                     ),
                   );
                 },
