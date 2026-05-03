@@ -14,7 +14,10 @@ class ChatDetailPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: const Icon(Icons.arrow_back, color: Colors.black),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context), // ← back button
+        ),
         title: Text(chat.name, style: const TextStyle(color: Colors.black)),
         actions: const [
           Icon(Icons.call_outlined, color: Colors.black),
@@ -81,11 +84,22 @@ class _ChatInput extends StatelessWidget {
                 color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(30),
               ),
-              child: const TextField(
-                decoration: InputDecoration(
-                  hintText: "Message...",
-                  border: InputBorder.none,
-                ),
+              child: Row(
+                children: [
+                  const Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: "Message...",
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    // ← tambah icon gambar
+                    icon: const Icon(Icons.image_outlined, color: Colors.grey),
+                    onPressed: () => debugPrint("Image tapped"),
+                  ),
+                ],
               ),
             ),
           ),

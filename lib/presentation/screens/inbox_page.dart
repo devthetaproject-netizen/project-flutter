@@ -19,34 +19,56 @@ class _InboxPageState extends ConsumerState<InboxPage> {
     final chats = ref.watch(chatProvider);
 
     return SafeArea(
-      child: Column(
+      child: Stack(
         children: [
-          _buildHeader(),
-          _buildTabBar(),
-          const SizedBox(height: 8),
-          Expanded(
-            child: _activeTab == 0
-                ? ListView.builder(
-                    itemCount: chats.length,
-                    itemBuilder: (context, index) {
-                      final chat = chats[index];
-                      return ChatItem(
-                        name: chat.name,
-                        message: chat.message,
-                        time: chat.time,
-                        count: chat.count,
-                        imagePath: chat.imagePath,
-                        onTap: () =>
-                            InboxNavigation.toChatDetail(context, chat),
-                      );
-                    },
-                  )
-                : const Center(
-                    child: Text(
-                      'Calls coming soon!',
-                      style: TextStyle(color: Colors.black45),
-                    ),
-                  ),
+          Column(
+            children: [
+              _buildHeader(),
+              _buildTabBar(),
+              const SizedBox(height: 8),
+              Expanded(
+                child: _activeTab == 0
+                    ? ListView.builder(
+                        itemCount: chats.length,
+                        itemBuilder: (context, index) {
+                          final chat = chats[index];
+                          return ChatItem(
+                            name: chat.name,
+                            message: chat.message,
+                            time: chat.time,
+                            count: chat.count,
+                            imagePath: chat.imagePath,
+                            onTap: () =>
+                                InboxNavigation.toChatDetail(context, chat),
+                          );
+                        },
+                      )
+                    : const Center(
+                        child: Text(
+                          'Calls coming soon!',
+                          style: TextStyle(color: Colors.black45),
+                        ),
+                      ),
+              ),
+            ],
+          ),
+
+          // FAB button
+          Positioned(
+            bottom: 16,
+            right: 16,
+            child: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.deepPurple, Colors.purple],
+                ),
+                shape: BoxShape.circle,
+              ),
+              child: IconButton(
+                icon: const Icon(Icons.add, color: Colors.white),
+                onPressed: () => debugPrint("FAB tapped"),
+              ),
+            ),
           ),
         ],
       ),
@@ -58,6 +80,7 @@ class _InboxPageState extends ConsumerState<InboxPage> {
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
+          // Logo placeholder — ganti sendiri nanti
           Container(
             height: 40,
             width: 40,
@@ -67,7 +90,16 @@ class _InboxPageState extends ConsumerState<InboxPage> {
               ),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Icon(Icons.message, color: Colors.white),
+            child: const Center(
+              child: Text(
+                "h",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ),
           const SizedBox(width: 12),
           const Text(
