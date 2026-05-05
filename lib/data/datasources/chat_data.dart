@@ -4,7 +4,7 @@ import '../models/chat_message_model.dart';
 class ChatData {
   static List<ChatModel> chats = [
     ChatModel(
-      name: "Jenny Wilson",
+      name: "Josh Russel",
       message: "I have booked your house ...",
       time: "13.29",
       count: 2,
@@ -40,7 +40,7 @@ class ChatData {
       ],
     ),
     ChatModel(
-      name: "Alfonzo",
+      name: "Fernando Alfonzo",
       message: "Hello bro, show me da way",
       time: "10:00",
       count: 1,
@@ -54,7 +54,7 @@ class ChatData {
       ],
     ),
     ChatModel(
-      name: "Benny",
+      name: "Benny Antonelly",
       message: "🔥🔥🔥",
       time: "09.25",
       count: 0,

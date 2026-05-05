@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../navigation/inbox_navigation.dart';
 import '../state_mgmt/chat_provider.dart';
 import '../widgets/chat_item.dart';
+import 'package:flutter_application_user/presentation/state_mgmt/call_provider.dart';
+import 'package:flutter_application_user/presentation/widgets/call_item.dart';
 
 class InboxPage extends ConsumerStatefulWidget {
   const InboxPage({super.key});
@@ -17,7 +19,7 @@ class _InboxPageState extends ConsumerState<InboxPage> {
   @override
   Widget build(BuildContext context) {
     final chats = ref.watch(chatProvider);
-
+    final calls = ref.watch(callProvider);
     return SafeArea(
       child: Stack(
         children: [
@@ -43,11 +45,12 @@ class _InboxPageState extends ConsumerState<InboxPage> {
                           );
                         },
                       )
-                    : const Center(
-                        child: Text(
-                          'Calls coming soon!',
-                          style: TextStyle(color: Colors.black45),
-                        ),
+                    : ListView.builder(
+                        itemCount: calls.length,
+                        itemBuilder: (context, index) {
+                          final call = calls[index];
+                          return CallItem(call: call);
+                        },
                       ),
               ),
             ],
