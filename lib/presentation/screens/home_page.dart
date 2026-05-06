@@ -53,7 +53,7 @@ class _HomePagesState extends State<HomePages> {
     return Scaffold(
       appBar: BerandaAppBar(
         name: UserData.currentUser.name,
-        greeting: "Selamat Pagi 👋",
+        greeting: "Selamat Pagi 2 atau 3 👋",
         imagePath: UserData.currentUser.imagePath,
         onProfileTap: widget.onProfileTap,
         onNotificationTap: _onNotificationTap,
